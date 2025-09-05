@@ -83,3 +83,48 @@ h1, h2, h3, h4, h5, h6 { color: #eef3ff; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+
+/* Light theme overrides */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f7f9ff;
+  --bg-contrast: #ffffff;
+  --text: #0c1220;
+  --muted: #55607a;
+  --primary: #3b5bff;
+  --primary-600: #2f4be6;
+  --primary-700: #233bcb;
+  --soft: rgba(63, 94, 251, 0.12);
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-secondary-color: var(--muted);
+  --bs-border-color: #e4e8f5;
+  --bs-link-color: var(--primary);
+  --bs-link-hover-color: #1e3df5;
+  --bs-primary: var(--primary);
+  --bs-card-bg: #ffffff;
+  --bs-card-border-color: #e7ecf8;
+  --bs-heading-color: #0c1220;
+}
+[data-theme="light"] .bg-gradient { background: linear-gradient(90deg, #f0f3ff, #e9eeff); }
+[data-theme="light"] .footer { background: #f1f4ff; }
+[data-theme="light"] .card { background: #fff; border-color: #e7ecf8; }
+[data-theme="light"] .badge.bg-soft { color: #0c1220; border-color: #00000010; }
+[data-theme="light"] .nav-link { color: #233bcb; }
+[data-theme="light"] .nav-link:hover { color: #1e3df5; }
+[data-theme="light"] .progress { background: #e9edfb; }
+[data-theme="light"] .hero { background: radial-gradient(1200px 600px at -10% -10%, #dfe6ff 0, transparent 60%), radial-gradient(1000px 500px at 110% -10%, #e9eeff 0, transparent 60%), linear-gradient(180deg, #f5f7ff, #eef3ff); color: #0c1220; }
+[data-theme="light"] .hero .badge.bg-soft { background: rgba(0,0,0,.06); }
+[data-theme="light"] .hero .grad-text { background: linear-gradient(90deg, #3b5bff, #8a3bff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3, [data-theme="light"] h4, [data-theme="light"] h5, [data-theme="light"] h6 { color: #0c1220; }
+
+/* Print stylesheet for CV */
+@media print {
+  nav, .footer, .btn, .navbar, .map-holder, .hero, .section-head + .text-muted, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+  a { color: #000; text-decoration: none; }
+  .card { box-shadow: none !important; border-color: #ccc; }
+  .container { width: 100%; max-width: 100%; }
+  .page-break { page-break-after: always; }
+}

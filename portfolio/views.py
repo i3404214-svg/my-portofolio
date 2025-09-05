@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.http import HttpResponse
 from django.conf import settings
 from django.core.mail import send_mail
 
-from .models import Project, Skill, Experience, Education, Service, Testimonial, SocialLink, ContactMessage
+from .models import Project, Skill, Experience, Education, Service, Testimonial, SocialLink, ContactMessage, ProjectCategory
 from django import forms
 
 
@@ -96,3 +97,19 @@ class ContactView(FormView):
 
 
 # Create your views here.
+
+
+
+def vcard(request):
+    from django.conf import settings
+    email = getattr(settings, 'CONTACT_RECIPIENT_EMAIL', 'hello@example.com')
+    full_url = request.build_absolute_uri('/')
+    content = f'''BEGIN:VCARD
+VERSION:3.0
+N:Florea;Iulian;;;
+FN:Iulian Florea
+EMAIL;TYPE=INTERNET:{email}
+URL:{full_url}
+END:VCARD
+'''
+    return HttpResponse(content, content_type='text/vcard')

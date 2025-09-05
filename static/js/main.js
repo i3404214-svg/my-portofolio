@@ -11,5 +11,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+
+  // Theme toggle (light/dark) with localStorage
+  const html = document.documentElement
+  const btn = document.querySelector('[data-theme-toggle]')
+  const iconDark = document.querySelector('[data-icon-dark]')
+  const iconLight = document.querySelector('[data-icon-light]')
+  function setTheme(theme) {
+    html.setAttribute('data-theme', theme)
+    html.setAttribute('data-bs-theme', theme)
+    const meta = document.querySelector('meta[name="theme-color"]')
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f17' : '#f7f9ff')
+    if (iconDark && iconLight) {
+      if (theme === 'dark') { iconDark.classList.remove('d-none'); iconLight.classList.add('d-none') }
+      else { iconDark.classList.add('d-none'); iconLight.classList.remove('d-none') }
+    }
+  }
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+      localStorage.setItem('theme', current)
+      setTheme(current)
+    })
+    setTheme(html.getAttribute('data-theme') || 'dark')
+  }
 })
 

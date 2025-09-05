@@ -7,5 +7,6 @@ urlpatterns = [
     path('proiecte/<slug:slug>/', views.ProjectDetailView.as_view(), name='project_detail'),
     path('rezumat/', views.ResumeView.as_view(), name='resume'),
     path('contact/', views.ContactView.as_view(), name='contact'),
+    path('vcard.vcf', views.vcard, name='vcard'),
 ]
 
