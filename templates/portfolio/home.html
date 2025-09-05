@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Acasă — Portofoliu{% endblock %}
+{% block content %}
+
+<section class="hero position-relative overflow-hidden">
+  <div class="hero-gradient"></div>
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-7" data-aos="fade-up">
+        <span class="badge rounded-pill bg-soft mb-3">Disponibil pentru proiecte freelance</span>
+        <h1 class="display-5 fw-bold lh-sm">Salut, sunt <span class="grad-text">Iulian</span> — dezvoltator web.</h1>
+        <p class="lead mt-3">Construiesc site‑uri și aplicații moderne, rapide și scalabile. Mă concentrez pe UX, calitate și rezultate.</p>
+        <div class="mt-4 d-flex gap-3 flex-wrap">
+          <a class="btn btn-primary btn-lg px-4" href="/proiecte/">Vezi proiecte</a>
+          <a class="btn btn-outline-light btn-lg px-4" href="/contact/">Hai să vorbim</a>
+        </div>
+      </div>
+      <div class="col-lg-5 text-center" data-aos="zoom-in">
+        <img class="img-fluid rounded-4 shadow hero-image" alt="Avatar" src="{% static 'img/hero-avatar.png' %}" onerror="this.src='https://picsum.photos/500/500?grayscale&blur=2'">
+      </div>
+    </div>
+  </div>
+  <svg class="position-absolute bottom-0 start-0 w-100" height="80" preserveAspectRatio="none" viewBox="0 0 1200 120">
+    <path d="M0,0V46.29c47.79,22.2,103.59,29.05,158,17,70-15.26,136-57.7,206-73C438,1.27,512,12.3,583,28c69,15.26,138,35.54,209,42,66,5.94,132-1.11,198-14V0Z" opacity=".25" class="shape-fill"></path>
+    <path d="M0,0V15.81C13,36.92,27,56.47,53,72c53,32,118,32,178,12,51-17,97-46,148-62,74-23,150-20,224,3,64,20,130,49,196,56,56,6.23,112-1.23,168-16V0Z" opacity=".5" class="shape-fill"></path>
+    <path d="M0,0V5.63C149.93,59,314,71,475,42c43-7,84-18,127-26,59-11,117-9,175,7,66,18,130,48,197,59,44,7,88,5,132-1V0Z" class="shape-fill"></path>
+  </svg>
+</section>
+
+<section class="container py-5">
+  <div class="section-head" data-aos="fade-up">
+    <h2 class="h1 fw-bold">Proiecte de top</h2>
+    <p class="text-muted">Selecție de lucrări reprezentative.</p>
+  </div>
+  <div class="row g-4">
+    {% for p in projects %}
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <a class="card project-card h-100 text-decoration-none" href="{% url 'project_detail' p.slug %}">
+          <div class="ratio ratio-16x9">
+            {% if p.cover %}
+              <img src="{{ p.cover.url }}" class="card-img-top" alt="{{ p.title }}">
+            {% else %}
+              <img src="https://picsum.photos/800/450?random={{ forloop.counter }}" class="card-img-top" alt="{{ p.title }}">
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h3 class="h5 mb-1 text-white">{{ p.title }}</h3>
+            <p class="text-muted small mb-2">{{ p.subtitle }}</p>
+            <div>
+              {% for s in p.skills.all|slice:':4' %}
+                <span class="badge bg-soft me-1 mb-1">{{ s.name }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </a>
+      </div>
+    {% empty %}
+      <div class="col-12"><div class="alert alert-secondary">Nu există proiecte momentan.</div></div>
+    {% endfor %}
+  </div>
+  <div class="text-center mt-4">
+    <a href="/proiecte/" class="btn btn-outline-primary">Toate proiectele</a>
+  </div>
+</section>
+
+<section class="bg-contrast py-5">
+  <div class="container">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6" data-aos="fade-right">
+        <h2 class="fw-bold">Abilități</h2>
+        <p class="text-muted">Stack-ul principal utilizat în proiecte.</p>
+        {% for sk in skills %}
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small"><span>{{ sk.name }}</span><span>{{ sk.level }}%</span></div>
+            <div class="progress rounded-pill" style="height: 8px">
+              <div class="progress-bar" role="progressbar" style="width: {{ sk.level }}%"></div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <h2 class="fw-bold">Servicii</h2>
+        <div class="row g-3">
+          {% for srv in services %}
+            <div class="col-sm-6">
+              <div class="card h-100 feature">
+                <div class="card-body">
+                  <div class="icon"><i class="{{ srv.icon|default:'fa-solid fa-star' }}"></i></div>
+                  <h3 class="h6 text-white">{{ srv.title }}</h3>
+                  <p class="text-muted small mb-0">{{ srv.description }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="section-head" data-aos="fade-up">
+    <h2 class="fw-bold">Testimoniale</h2>
+  </div>
+  <div class="row g-4">
+    {% for t in testimonials %}
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="card h-100 quote">
+          <div class="card-body">
+            <p class="mb-3">“{{ t.content }}”</p>
+            <div class="d-flex align-items-center">
+              {% if t.avatar %}
+                <img src="{{ t.avatar.url }}" class="rounded-circle me-3" width="44" height="44" alt="{{ t.author }}">
+              {% else %}
+                <img src="https://i.pravatar.cc/100?u={{ t.author|urlencode }}" class="rounded-circle me-3" width="44" height="44" alt="{{ t.author }}">
+              {% endif %}
+              <div>
+                <div class="fw-semibold">{{ t.author }}</div>
+                <div class="small text-muted">{{ t.role }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12"><div class="alert alert-secondary">Momentan nu există testimoniale.</div></div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="bg-contrast py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7" data-aos="fade-right">
+        <h2 class="fw-bold">Hai să lucrăm împreună</h2>
+        <p class="text-muted">Ai un proiect în minte? Trimite-mi un mesaj și îți răspund rapid.</p>
+      </div>
+      <div class="col-lg-5 text-lg-end" data-aos="fade-left">
+        <a href="/contact/" class="btn btn-primary btn-lg">Contactează-mă</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Rezumat — Portofoliu{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <div class="row g-5">
+    <div class="col-lg-7">
+      <h1 class="fw-bold mb-4">Experiență</h1>
+      {% for e in experiences %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div>
+                <div class="fw-semibold">{{ e.role }}</div>
+                <div class="text-muted small">{{ e.company }}</div>
+              </div>
+              <div class="text-muted small">{{ e.start_date }} – {{ e.end_date|default:'Prezent' }}</div>
+            </div>
+            <div class="mt-2 text-muted">{{ e.description|linebreaks }}</div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="alert alert-secondary">Nu este definită experiență încă.</div>
+      {% endfor %}
+
+      <h2 class="fw-bold mt-5 mb-4">Educație</h2>
+      {% for ed in education %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between flex-wrap">
+              <div>
+                <div class="fw-semibold">{{ ed.degree }}</div>
+                <div class="text-muted small">{{ ed.institution }}</div>
+              </div>
+              <div class="text-muted small">{{ ed.start_date }} – {{ ed.end_date|default:'Prezent' }}</div>
+            </div>
+            <div class="mt-2 text-muted">{{ ed.description|linebreaks }}</div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="alert alert-secondary">Nu este definită educația încă.</div>
+      {% endfor %}
+    </div>
+    <div class="col-lg-5">
+      <h2 class="fw-bold">Abilități</h2>
+      {% for sk in skills %}
+        <div class="mb-3">
+          <div class="d-flex justify-content-between small"><span>{{ sk.name }}</span><span>{{ sk.level }}%</span></div>
+          <div class="progress rounded-pill" style="height:8px">
+            <div class="progress-bar" role="progressbar" style="width:{{ sk.level }}%"></div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="alert alert-secondary">Nu sunt definite abilități încă.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+

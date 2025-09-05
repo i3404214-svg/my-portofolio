@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: django-portfolio
+    env: python
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: |
+      python manage.py migrate --noinput && gunicorn portfolio_site.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13
+      - key: DJANGO_SETTINGS_MODULE
+        value: portfolio_site.settings
+      - key: DEBUG
+        value: "False"
+      # Configure ulterior prin Dashboard: SECRET_KEY, CONTACT_RECIPIENT_EMAIL, ALLOWED_HOSTS, CSRF_TRUSTED_ORIGINS, DATABASE_URL (ex. Neon)

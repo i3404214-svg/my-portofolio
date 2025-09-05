@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Proiecte — Portofoliu{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <div class="section-head">
+    <h1 class="fw-bold">Toate proiectele</h1>
+    <p class="text-muted">Colecție de lucrări, studii de caz și experimente.</p>
+  </div>
+  <div class="row g-4">
+    {% for p in projects %}
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <a class="card project-card h-100 text-decoration-none" href="{% url 'project_detail' p.slug %}">
+          <div class="ratio ratio-16x9">
+            {% if p.cover %}
+              <img src="{{ p.cover.url }}" class="card-img-top" alt="{{ p.title }}">
+            {% else %}
+              <img src="https://picsum.photos/800/450?random={{ forloop.counter }}" class="card-img-top" alt="{{ p.title }}">
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h3 class="h5 mb-1 text-white">{{ p.title }}</h3>
+            <p class="text-muted small mb-2">{{ p.subtitle }}</p>
+            <div class="d-flex flex-wrap gap-1">
+              {% for s in p.skills.all|slice:':5' %}
+                <span class="badge bg-soft">{{ s.name }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </a>
+      </div>
+    {% empty %}
+      <div class="col-12"><div class="alert alert-secondary">Nu există proiecte momentan.</div></div>
+    {% endfor %}
+  </div>
+  {% if is_paginated %}
+  <div class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+      {% endif %}
+      <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
+

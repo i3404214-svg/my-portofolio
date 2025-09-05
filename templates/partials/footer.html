@@ -1,0 +1,13 @@
+<footer class="footer mt-5 py-5 border-top">
+  <div class="container text-center small text-muted">
+    <div class="mb-2">
+      {% if socials %}
+        {% for s in socials %}
+          <a href="{{ s.url }}" class="text-muted me-3" target="_blank" rel="noopener"><i class="{{ s.icon|default:'fa-solid fa-link' }}"></i></a>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div>&copy; {{ now|date:'Y' }} Portofoliu. Toate drepturile rezervate.</div>
+  </div>
+</footer>
+
