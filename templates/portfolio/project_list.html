@@ -2,13 +2,27 @@
 {% block title %}Proiecte — Portofoliu{% endblock %}
 {% block content %}
 <section class="container py-5">
-  <div class="section-head">
-    <h1 class="fw-bold">Toate proiectele</h1>
-    <p class="text-muted">Colecție de lucrări, studii de caz și experimente.</p>
+  <div class="section-head d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+    <div>
+      <h1 class="fw-bold">Toate proiectele</h1>
+      <p class="text-muted mb-0">Colecție de lucrări, studii de caz și experimente.</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <input id="searchProjects" class="form-control" placeholder="Caută proiecte..." style="max-width: 260px">
+      <div class="dropdown">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">Categorie</button>
+        <ul class="dropdown-menu dropdown-menu-end small" id="categoryMenu">
+          <li><a class="dropdown-item active" href="#" data-filter="*">Toate</a></li>
+          {% for c in categories %}
+            <li><a class="dropdown-item" href="#" data-filter="{{ c.slug }}">{{ c.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </div>
   <div class="row g-4">
     {% for p in projects %}
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-project data-title="{{ p.title|lower }} {{ p.subtitle|lower }}" data-category="{{ p.category.slug|default:'' }}" data-skills="{% for s in p.skills.all %}{{ s.name|lower }} {% endfor %}" data-aos-delay="{{ forloop.counter0|add:1 }}00">
         <a class="card project-card h-100 text-decoration-none" href="{% url 'project_detail' p.slug %}">
           <div class="ratio ratio-16x9">
             {% if p.cover %}
@@ -45,6 +59,31 @@
     </ul>
   </div>
   {% endif %}
+  <script>
+    (function(){
+      const q = document.getElementById('searchProjects');
+      const items = Array.from(document.querySelectorAll('[data-project]'));
+      const menu = document.getElementById('categoryMenu');
+      let currentCat = '*';
+      function apply(){
+        const term = (q?.value || '').toLowerCase().trim();
+        items.forEach(it => {
+          const matchesText = !term || (it.dataset.title?.includes(term) || it.dataset.skills?.includes(term));
+          const matchesCat = currentCat === '*' || (it.dataset.category === currentCat);
+          it.style.display = (matchesText && matchesCat) ? '' : 'none';
+        });
+      }
+      q && q.addEventListener('input', apply);
+      menu && menu.addEventListener('click', (e)=>{
+        const a = e.target.closest('a[data-filter]');
+        if(!a) return; e.preventDefault();
+        currentCat = a.dataset.filter;
+        menu.querySelectorAll('.dropdown-item').forEach(x=>x.classList.remove('active'));
+        a.classList.add('active');
+        apply();
+      });
+    })();
+  </script>
 </section>
 {% endblock %}
 
