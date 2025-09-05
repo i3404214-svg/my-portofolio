@@ -28,21 +28,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-insecure-secret-change-me')
 
 DEBUG = os.environ.get("DEBUG", "True").lower() in {"1", "true", "yes", "on"}
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com", "iulian-developer.com", "www.iulian-developer.com"]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
+# Pentru Django 4+ este necesar si CSRF_TRUSTED_ORIGINS (include Render si domeniul tau)
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com", "https://iulian-developer.com", "https://www.iulian-developer.com"]
 if RENDER_EXTERNAL_HOSTNAME:
     CSRF_TRUSTED_ORIGINS.append(f"https://{RENDER_EXTERNAL_HOSTNAME}")
-
-# Pentru Django 4+ este necesar și CSRF_TRUSTED_ORIGINS
-CSRF_TRUSTED_ORIGINS = [
-    f"https://{RENDER_EXTERNAL_HOSTNAME}"
-] if RENDER_EXTERNAL_HOSTNAME else []
-
 
 # Application definition
 
