@@ -5,10 +5,11 @@
   <div class="d-flex justify-content-end gap-2 mb-3 no-print">
     <button class="btn btn-outline-light btn-sm" onclick="window.print()"><i class="fa-solid fa-file-arrow-down me-1"></i>Descarcă CV (PDF)</button>
     <a class="btn btn-primary btn-sm" href="/contact/"><i class="fa-solid fa-paper-plane me-1"></i>Contactează-mă</a>
+    <a class="btn btn-outline-light btn-sm" href="{% url "vcard" %}"><i class="fa-solid fa-id-card me-1"></i>vCard</a>
   </div>
   <div class="row g-5">
-    <div class="col-lg-7">
-      <h1 class="fw-bold mb-4">Experiență</h1>
+    <div class="col-lg-6">
+      <h2 class="fw-bold mb-4">Experiență</h2>
       {% for e in experiences %}
         <div class="card mb-3">
           <div class="card-body">
@@ -23,7 +24,7 @@
           </div>
         </div>
       {% empty %}
-        <div class="alert alert-secondary">Nu este definită experiență încă.</div>
+        <div class="card mb-3"><div class="card-body text-muted">Nu este definită experiență încă.</div></div>
       {% endfor %}
 
       <h2 class="fw-bold mt-5 mb-4">Educație</h2>
@@ -41,10 +42,10 @@
           </div>
         </div>
       {% empty %}
-        <div class="alert alert-secondary">Nu este definită educația încă.</div>
+        <div class="card mb-3"><div class="card-body text-muted">Nu este definită educația încă.</div></div>
       {% endfor %}
     </div>
-    <div class="col-lg-5">
+    <div class="col-lg-6">
       <h2 class="fw-bold">Abilități</h2>
       {% for sk in skills %}
         <div class="mb-3">
@@ -54,10 +55,9 @@
           </div>
         </div>
       {% empty %}
-        <div class="alert alert-secondary">Nu sunt definite abilități încă.</div>
+        <div class="card mb-3"><div class="card-body text-muted">Nu sunt definite abilități încă.</div></div>
       {% endfor %}
     </div>
-    <a class="btn btn-outline-light btn-sm" href="{% url 'vcard' %}"><i class="fa-solid fa-id-card me-1"></i>vCard</a>
   </div>
 </section>
 {% endblock %}
