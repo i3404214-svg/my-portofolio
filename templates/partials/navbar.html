@@ -4,10 +4,18 @@
     <a class="navbar-brand fw-bold" href="/">
       <i class="fa-solid fa-terminal me-2"></i>Portofoliu
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
-      aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+
+    <div class="d-flex align-items-center ms-auto gap-2">
+      <button class="btn btn-sm btn-outline-light btn-theme" type="button" id="themeToggle" data-theme-toggle aria-label="Comută tema">
+        <i class="fa-solid fa-moon" data-icon-dark></i>
+        <i class="fa-solid fa-sun d-none" data-icon-light></i>
+      </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
+        aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="/">Acasă</a></li>
@@ -15,14 +23,6 @@
         <li class="nav-item"><a class="nav-link" href="/rezumat/">Rezumat</a></li>
         <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
       </ul>
-      <div class="ms-lg-3 mt-2 mt-lg-0 d-flex align-items-center gap-2">
-        <button class="btn btn-sm btn-outline-light" type="button" id="themeToggle" data-theme-toggle aria-label="Comută tema">
-          <i class="fa-solid fa-moon" data-icon-dark></i>
-          <i class="fa-solid fa-sun d-none" data-icon-light></i>
-          
-        </button>
-      </div>
     </div>
   </div>
 </nav>
-

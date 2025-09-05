@@ -42,6 +42,9 @@ body { opacity: 0; animation: fade-reveal .45s ease forwards; }
 .badge.bg-soft { background: var(--soft); color: var(--text); border: 1px solid #ffffff10; }
 .navbar .nav-link { color: #cfd7ff; }
 .navbar .nav-link:hover { color: #fff; }
+.navbar .btn-theme { padding: .375rem .5rem; line-height: 1; border-color: #ffffff33; }
+.navbar .btn-theme i { width: 1rem; }
+[data-theme="light"] .navbar .btn-theme { border-color: #00000022; }
 .footer { background: #0c1220; }
 .card { background: #0e1524; border: 1px solid #1d2a4b; }
 .card .card-title, .card h3, .card h5 { color: #f3f6ff; }
