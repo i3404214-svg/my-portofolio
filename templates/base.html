@@ -6,10 +6,10 @@
     <title>{% block title %}Portofoliu — {{ request.get_host }}{% endblock %}</title>
     <meta name="description" content="Portofoliu personal — proiecte, servicii, experiență și contact.">
     <meta name="theme-color" content="#0b0f17">
-    <meta property="og:title" content="{% block og_title %}{% block title %}Portofoliu{% endblock %}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Portofoliu{% endblock %}">
     <meta property="og:description" content="Portofoliu personal — proiecte, servicii, experiență și contact.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.build_absolute_uri|default: }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri|default:'' }}">
     <meta property="og:image" content="https://picsum.photos/1200/630?random=9">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
